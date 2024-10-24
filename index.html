@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR Box Estimator</title>
+    <style>
+        body, html { margin: 0; padding: 0; overflow: hidden; }
+        #slider-container {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #slider-container input {
+            margin: 5px;
+            width: 30%;
+        }
+    </style>
+</head>
+<body>
+    <a-scene embedded arjs>
+        <!-- Virtual Box -->
+        <a-box id="virtual-box" position="0 0.5 0" depth="0.5" height="0.5" width="0.5" color="#4CC3D9"></a-box>
+        <!-- AR Camera -->
+        <a-marker-camera preset="hiro"></a-marker-camera>
+    </a-scene>
+
+    <div id="slider-container">
+        <!-- Sliders to Adjust the Box Dimensions -->
+        <input type="range" id="width-slider" min="0.1" max="2" step="0.01" value="0.5" title="Adjust Width">
+        <input type="range" id="height-slider" min="0.1" max="2" step="0.01" value="0.5" title="Adjust Height">
+        <input type="range" id="depth-slider" min="0.1" max="2" step="0.01" value="0.5" title="Adjust Depth">
+    </div>
+
+    <!-- A-Frame and AR.js Libraries -->
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/1.6.1/aframe/build/aframe-ar.min.js"></script>
+
+    <!-- Custom JavaScript to Handle Slider Changes -->
+    <script>
+        // Function to update the dimensions of the box
+        document.getElementById('width-slider').addEventListener('input', function() {
+            document.getElementById('virtual-box').setAttribute('width', this.value);
+        });
+
+        document.getElementById('height-slider').addEventListener('input', function() {
+            document.getElementById('virtual-box').setAttribute('height', this.value);
+        });
+
+        document.getElementById('depth-slider').addEventListener('input', function() {
+            document.getElementById('virtual-box').setAttribute('depth', this.value);
+        });
+    </script>
+</body>
+</html>
